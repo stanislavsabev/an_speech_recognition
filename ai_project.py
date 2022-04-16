@@ -1,30 +1,17 @@
 import sys
 import webbrowser
-import pyttsx3
-import speech_recognition as sr 
+
 import datetime
 import wikipedia
 import os
 import smtplib
-
-
-from weather import check_weather
-
+from siri import speak
+from siri import take_command
+from translate import trans
 
 song_number = 0
 music_dir = 'songsforai'
 songs = os.listdir(music_dir) 
-
-
-engine = pyttsx3.init('sapi5')
-voices = engine.getProperty('voices')
-# print(voices[2].id)
-engine.setProperty('voice', voices[1].id)
-
-def speak(audio):
-    pass
-    engine.say(audio)
-    engine.runAndWait()
 
 
 def wishMe():
@@ -40,26 +27,6 @@ def wishMe():
 
     speak("Hello Sir. how can I help you?")
 
-def takeCommand():
-    pass
-    #It takes microphone input from the user and returns string output
-
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Listening...")
-        r.pause_threshold = 1
-        audio = r.listen(source)
-
-    try:
-        print("Recognizing...")
-        query = r.recognize_google(audio, language='en-in')
-        print(f"User said: {query}\n")    
-
-    except Exception as e:
-        # print(e)
-        print("Say that again please...")
-        return "None"
-    return query 
 
 def play_music():
     global song_number
@@ -69,6 +36,7 @@ def play_music():
         song_number += 1
     print(songs[song_number])
     os.startfile(os.path.join(music_dir, songs[song_number]))
+
 
 def sendEmail(to, content):
     server = smtplib.SMTP('smntp.gmail.com', 587 )
@@ -81,9 +49,11 @@ def sendEmail(to, content):
 
 if __name__ == "__main__":
     wishMe()
+    i = 0
     while True:
-    
-        query = takeCommand().lower()
+        if i > 0:
+            speak('Waiting for new command.')
+        query = take_command().lower()
 
         if 'goodbye' in query: 
             speak("Goodbye sir! Talk to you next time.")
@@ -123,10 +93,19 @@ if __name__ == "__main__":
         elif 'email to sister' in query:
             try:
                 speak("What should i say?")
-                content = takeCommand()
+                content = take_command()
                 to = "stanislav.sabev@gmail.com"
                 sendEmail(to, content)
                 speak("Email has been sent")
             except Exception as e:
                 print(e)
                 speak("Sorry my friend . I am not able to send this email")
+
+        elif 'translate' in query:
+            query = str(query).replace('translate', '').strip()
+            result = trans(query)
+            if not result:
+                continue
+            print(result)
+            speak(result)
+        i += 1

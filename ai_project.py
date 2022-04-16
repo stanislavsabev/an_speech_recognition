@@ -1,5 +1,3 @@
-from email import contentmanager
-from http import server
 import sys
 import webbrowser
 import pyttsx3
@@ -9,8 +7,12 @@ import wikipedia
 import os
 import smtplib
 
+
+from weather import check_weather
+
+
 song_number = 0
-music_dir = 'D:\\sngsforai'
+music_dir = 'songsforai'
 songs = os.listdir(music_dir) 
 
 

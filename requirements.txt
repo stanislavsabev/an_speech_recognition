@@ -1,3 +1,4 @@
 pyttsx3
 speechRecognition
 wikipedia
+google_trans_new

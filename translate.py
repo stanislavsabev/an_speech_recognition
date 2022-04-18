@@ -1,10 +1,6 @@
 
-import re
-import speech_recognition as sr
+import queue
 from google_trans_new import google_translator
-
-import pyttsx3
-
 from siri import speak, take_command 
 
 
@@ -120,20 +116,30 @@ LANGUAGES = {
 }
 
 #Translation function
-def trans(result):
+def trans(result) -> str:
     # print('What language you want to translate to?')
     speak('What language you want to translate to? :')
     i = 0
     while i < 2:
         langinput = take_command()
         language = LANGUAGES.get(str(langinput.lower()))
-        if language is None:
-            speak('Unknown language, try again!')
-            i += 1
-            continue
+        if language is not None:
+            break
+        speak('Unknown language, try again!')
+        i += 1
+
     if language is None:
         return ''
 
-    translator=google_translator()
+    translator = google_translator()
     translate_text=translator.translate(result ,lang_tgt=language, lang_src='en')
     return translate_text
+
+
+if __name__ == '__main__':
+    speak('What do you want to translate?')
+    query = take_command()
+    result = trans(query)
+    if result:
+        speak('Showing translaton.')
+        print(result)

@@ -1,8 +1,7 @@
-import re
-
 import calendar
+
 from siri import speak
-from siri import take_command
+from siri import speak_and_take_command
 
 day_dict = {
     'one': 1,
@@ -36,12 +35,9 @@ month_dict = {
 }
 
 def weekday():
-    speak("Enter Year")
-    year = take_command()
-    speak("Enter Month")
-    month = take_command()
-    speak("Enter date")
-    date = take_command()
+    year = speak_and_take_command("Enter Year")
+    month = speak_and_take_command("Enter Month")
+    date = speak_and_take_command("Enter date")
 
     if month:
         month = month.lower()

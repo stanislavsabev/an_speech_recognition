@@ -13,7 +13,7 @@ def speak(audio):
     engine.runAndWait()
 
 
-def take_command() -> Optional[str]:
+def take_command() -> str:
     #It takes microphone input from the user and returns string output
 
     r = sr.Recognizer()
@@ -31,7 +31,10 @@ def take_command() -> Optional[str]:
         print(f"User said: {query}\n")    
 
     except Exception as e:
-        # print(e)
         print("Say that again please...")
-        return "None"
+        return ''
     return query 
+
+def speak_and_take_command(audio):
+    speak(audio)
+    return take_command()

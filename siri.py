@@ -23,20 +23,19 @@ def speak(audio):
 
 
 def take_command(retry=False, cancel_noise=False) -> str:
+    r = sr.Recognizer()
     def _take_command():
         # It takes microphone input from the user and returns string output
-        r = sr.Recognizer()
         with sr.Microphone() as source:
             if cancel_noise:
                 print('Clearing the background noises..')
                 r.adjust_for_ambient_noise(source,duration=1)
-            r.pause_threshold = 1
+            r.pause_threshold = 1.2
             print("Listening...")
             audio = r.listen(source)
         try:
-            print("Recognizing...")
+            # print("Recognizing...")
             query = r.recognize_google(audio, language='en-in')
-            print(f">> You said: {query}\n")    
         except Exception as e:
             return ''
         return query
@@ -44,8 +43,11 @@ def take_command(retry=False, cancel_noise=False) -> str:
     command = _take_command()
     if not command and retry and not Siri.is_quiet:
         while not command:
-            speak("Say that again please!")
+            print("Say that again please!")
             command = _take_command()
+
+    if command:
+        print(f">>> You said: {command}\n")    
     return command
 
 

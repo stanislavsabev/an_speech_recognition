@@ -46,19 +46,20 @@ def main():
             sys.exit(0)
 
         if siri.Siri.is_quiet:
-            if 'hey siri' in query:
+            if any(x in query for x in ['hey siri', 'hey city']):
                 commands.hey_siri(query)
             else:
                 print('Sleeping...')
                 time.sleep(2)
         else:
-            # Logic for executing tasks based on query
+            # Logic for executing tasks based on qu6ery
             for command, task in tasks.items():
                 if command in query:
                     task(query)
                     break
             else:
                 print('Unknown command, try again!')
+                print('Commands: ', list(tasks.keys()))
 
 
 if __name__ == "__main__":

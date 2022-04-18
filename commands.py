@@ -80,12 +80,12 @@ def open_calendar(query):
 
 def go_to_sleep_siri(query):
     del query
-    print('Siri going to sleep.')
+    siri.speak('Going to sleep.')
     siri.go_quiet(True)
 
 
 def hey_siri(query):
     del query
-    print('Siri waking up.')
+    print('Siri waking up...')
     siri.speak('Hello again sir!')
     siri.go_quiet(False)

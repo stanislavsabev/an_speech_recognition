@@ -8,6 +8,7 @@ import smtplib
 from siri import speak
 from siri import take_command
 from translate import trans
+import theday
 
 song_number = 0
 music_dir = 'songsforai'
@@ -51,8 +52,8 @@ if __name__ == "__main__":
     wishMe()
     i = 0
     while True:
-        if i > 0:
-            speak('Waiting for new command.')
+        # if i > 0:
+        #     speak('Waiting for new command.')
         query = take_command().lower()
 
         if 'goodbye' in query: 
@@ -108,4 +109,5 @@ if __name__ == "__main__":
                 continue
             print(result)
             speak(result)
+
         i += 1

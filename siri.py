@@ -1,3 +1,4 @@
+from typing import Optional
 import pyttsx3
 import speech_recognition as sr 
 
@@ -12,7 +13,7 @@ def speak(audio):
     engine.runAndWait()
 
 
-def take_command():
+def take_command() -> Optional[str]:
     #It takes microphone input from the user and returns string output
 
     r = sr.Recognizer()
@@ -21,7 +22,7 @@ def take_command():
         r.adjust_for_ambient_noise(source,duration=1)
         print("Listening...")
         r.pause_threshold = 1
-        audio = r.listen(source, timeout=8)
+        audio = r.listen(source)
 
     try:
 

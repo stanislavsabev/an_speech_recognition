@@ -1,7 +1,6 @@
 
-import queue
 from google_trans_new import google_translator
-from siri import speak, take_command 
+from siri import speak, take_command , speak_and_take_command
 
 
 LANGUAGES = {
@@ -19,8 +18,8 @@ LANGUAGES = {
     'catalan' : 'ca',
     'cebuano' : 'ceb',
     'chichewa' : 'ny',
-    'chinese (simplified)' : 'zh-c',
-    'chinese (traditional)' : 'zh-t',
+    'chinese simplified' : 'zh-c',
+    'chinese traditional' : 'zh-t',
     'corsican' : 'co',
     'croatian' : 'hr',
     'czech' : 'cs',
@@ -116,30 +115,37 @@ LANGUAGES = {
 }
 
 #Translation function
-def trans(result) -> str:
-    # print('What language you want to translate to?')
+def translate() -> str:
+    what = speak_and_take_command(
+        'What do you want to translate?', retry=True)
     speak('What language you want to translate to? :')
     i = 0
-    while i < 2:
-        langinput = take_command()
+    while i < 10:
+        langinput = take_command(retry=True)
+        if 'exit' in langinput:
+            speak('Exiting translator.')
+            return ''
         language = LANGUAGES.get(str(langinput.lower()))
-        if language is not None:
+        if language:
             break
-        speak('Unknown language, try again!')
+        speak('Unknown language, try again or say "exit" to close translator!')
         i += 1
 
-    if language is None:
+    if i >= 10:
+        speak('You tried 10 times. Exiting translator.')
         return ''
 
-    translator = google_translator()
-    translate_text=translator.translate(result ,lang_tgt=language, lang_src='en')
-    return translate_text
+    result = google_translator().translate(
+        what , lang_tgt=language, lang_src='en')
+    if not result:
+        speak(f'Could not find translation for {what}')
+    return result
 
 
 if __name__ == '__main__':
     speak('What do you want to translate?')
     query = take_command()
-    result = trans(query)
+    result = translate(query)
     if result:
         speak('Showing translaton.')
         print(result)

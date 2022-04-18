@@ -23,22 +23,21 @@ tasks = {
 }
 
 
-def wishMe():
-    hour = int(datetime.datetime.now().hour)
-    if hour>=0 and hour<12:
-        siri.speak("Good Morning!")
+def wish_me():
+    hour = datetime.datetime.now().hour
+    greeting = ''
+    if 0 <= hour < 12:
+        greeting = "Good Morning!"
 
-    elif hour>=12 and hour<18:
-        siri.speak("Good Afternoon!")
-
+    elif 12 <= hour < 18:
+        greeting = "Good Afternoon!"
     else:
-        siri.speak("Good Evening!")
-
-    siri.speak("Sir, how can I help you?")
+        greeting = "Good Evening!"
+    siri.speak(f"{greeting} Sir, how can I help you?")
 
 
 def main():
-    wishMe()
+    wish_me()
 
     while True:
         query = siri.take_command().lower()

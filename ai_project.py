@@ -6,6 +6,7 @@ import siri
 import commands
 
 
+
 tasks = {
     'wikipedia': commands.search_wikipedia,
     'open youtube': commands.open_youtube,
@@ -21,6 +22,12 @@ tasks = {
     'open calendar': commands.open_calendar,
     'go to sleep': commands.go_to_sleep_siri,
 }
+
+def show_commands(query):
+    del query
+    siri.speak("Showing commands!")
+    commands_list = '\n'.join(f"[{x}]" for x in list(tasks) + ['show commands', 'goodbye'])
+    print(commands_list)
 
 
 def wish_me():
@@ -51,6 +58,8 @@ def main():
             else:
                 print('Sleeping...')
                 time.sleep(2)
+        if 'show commands' in query:
+            show_commands(query)
         else:
             # Logic for executing tasks based on qu6ery
             for command, task in tasks.items():

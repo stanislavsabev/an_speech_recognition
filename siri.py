@@ -32,7 +32,7 @@ def take_command(retry=False, cancel_noise=False) -> str:
                 r.adjust_for_ambient_noise(source,duration=1)
             r.pause_threshold = 1.2
             print("Listening...")
-            audio = r.listen(source)
+            audio = r.listen(source, timeout=10)
         try:
             # print("Recognizing...")
             query = r.recognize_google(audio, language='en-in')

@@ -4,3 +4,4 @@ wikipedia
 google_trans_new
 PyAudio
 pylint
+black

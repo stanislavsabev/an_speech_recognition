@@ -39,7 +39,6 @@ LANGUAGES = {
     "haitian creole": "ht",
     "hausa": "ha",
     "hawaiian": "haw",
-    "hebrew": "iw",
     "hebrew": "he",
     "hindi": "hi",
     "hmong": "hmn",

@@ -26,9 +26,13 @@ tasks = {
 def show_commands(query):
     del query
     siri.speak("Showing commands!")
-    commands_list = "\n".join(
+    print_commands()
+
+def print_commands():
+    commands_list = ", ".join(
         f"[{x}]" for x in list(tasks) + ["show commands", "goodbye"]
     )
+    print("Commands: ")
     print(commands_list)
 
 
@@ -50,6 +54,10 @@ def main():
 
     while True:
         query = siri.take_command().lower()
+        if not query:
+            print_commands()
+            continue
+
         if "goodbye" in query:
             siri.speak("Goodbye sir! Talk to you next time.")
             sys.exit(0)
@@ -67,10 +75,8 @@ def main():
             for command, task in tasks.items():
                 if command in query:
                     task(query)
-                    break
-            else:
-                print("Unknown command, try again!")
-                print("Commands: ", list(tasks.keys()))
+                else:
+                    print("Unknown command, try again!")
 
 
 if __name__ == "__main__":

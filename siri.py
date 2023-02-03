@@ -27,17 +27,22 @@ def take_command(retry=False, cancel_noise=False) -> str:
 
     def _take_command():
         # It takes microphone input from the user and returns string output
-        with sr.Microphone() as source:
-            if cancel_noise:
-                print("Clearing the background noises..")
-                r.adjust_for_ambient_noise(source, duration=1)
-            r.pause_threshold = 1.2
-            print("Listening...")
-            audio = r.listen(source, timeout=10)
+        query = ""
         try:
-            # print("Recognizing...")
-            query = r.recognize_google(audio, language="en-in")
+            with sr.Microphone() as source:
+                if cancel_noise:
+                    print("Clearing the background noises..")
+                    r.adjust_for_ambient_noise(source, duration=1)
+                r.pause_threshold = 1.2
+                print("Listening...\n")
+                audio = r.listen(source, timeout=10)
+                # print("Recognizing...")
+                query = r.recognize_google(audio, language="en-in")
+        except sr.WaitTimeoutError:
+            print("Command took too long!")
+            return ""
         except Exception as e:
+            print(f"Error {e.args}")
             return ""
         return query
 

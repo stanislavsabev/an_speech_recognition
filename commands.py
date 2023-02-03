@@ -1,6 +1,6 @@
 import datetime
 
-import siri 
+import siri
 import webbrowser
 import music
 import emails
@@ -10,13 +10,13 @@ import wikipedia
 
 
 def search_wikipedia(query):
-    siri.speak('Searching Wikipedia...')
+    siri.speak("Searching Wikipedia...")
     wquery = query.replace("wikipedia", "")
     wquery = wquery.replace("according to", "").strip()
     try:
         results = wikipedia.summary(wquery, sentences=2)
     except wikipedia.PageError:
-        siri.speak('No results found. Sorry sir!')
+        siri.speak("No results found. Sorry sir!")
     else:
         siri.speak("According to Wikipedia")
         print(results)
@@ -25,7 +25,7 @@ def search_wikipedia(query):
 
 def open_youtube(query):
     del query
-    webbrowser.open("youtube.com") 
+    webbrowser.open("youtube.com")
 
 
 def open_google(query):
@@ -65,7 +65,7 @@ def translator_handler(query):
     del query
     result = translator.translate()
     if result:
-        siri.speak('Showing translasion.')
+        siri.speak("Showing translasion.")
         print(result)
 
 
@@ -73,19 +73,19 @@ def open_calendar(query):
     del query
     week_day = theday.weekday()
     if week_day is None:
-        siri.speak('Unknown date.')
+        siri.speak("Unknown date.")
     else:
         siri.speak(f"You were born on {week_day}")
 
 
 def go_to_sleep_siri(query):
     del query
-    siri.speak('Going to sleep.')
+    siri.speak("Going to sleep.")
     siri.go_quiet(True)
 
 
 def hey_siri(query):
     del query
-    print('Siri waking up...')
-    siri.speak('Hello again sir!')
+    print("Siri waking up...")
+    siri.speak("Hello again sir!")
     siri.go_quiet(False)

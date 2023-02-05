@@ -8,7 +8,6 @@ import commands
 
 tasks = {
     "wikipedia": commands.search_wikipedia,
-    "open youtube": commands.open_youtube,
     "open google": commands.open_google,
     "open spotify": commands.open_spotify,
     "play music": commands.music_player,
@@ -20,6 +19,8 @@ tasks = {
     "translate": commands.translator_handler,
     "open calendar": commands.open_calendar,
     "go to sleep": commands.go_to_sleep_siri,
+    "create folder": commands.create_folder,
+    "youtube search": commands.youtube,
 }
 
 
@@ -81,3 +82,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+

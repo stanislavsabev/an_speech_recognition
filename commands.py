@@ -1,5 +1,5 @@
 import datetime
-
+import youtube_search
 import siri
 import webbrowser
 import music
@@ -7,6 +7,7 @@ import emails
 import translator
 import theday
 import wikipedia
+import folders_filescreation
 
 
 def search_wikipedia(query):
@@ -89,3 +90,20 @@ def hey_siri(query):
     print("Siri waking up...")
     siri.speak("Hello again sir!")
     siri.go_quiet(False)
+
+
+def create_folder(query):
+    del query
+    folders_filescreation.foledrcreation()
+   
+
+def youtube(query):
+    del query 
+    youtube_search.search_video()
+
+    
+
+
+
+
+
